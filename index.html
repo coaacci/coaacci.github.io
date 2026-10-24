@@ -17,7 +17,7 @@
     display: flex; align-items: center; justify-content: center;
     overflow: hidden; background: #2b3729;
   }
-  .frame { position: relative; line-height: 0; }
+  .frame { position: relative; line-height: 0; animation: flyIn 1.3s cubic-bezier(.16,.8,.24,1) 2.8s both; }
   .frame::before {
     content: ""; position: absolute;
     left: -100vw; right: -100vw; top: -100vh; bottom: -100vh;
@@ -29,7 +29,6 @@
       #473f28 calc(100vh + (100% - 200vh) * .67),
       #323927 calc(100vh + (100% - 200vh) * .82),
       #2b3729 calc(100% - 100vh));
-    animation: bgIn 1.2s ease-out 2.9s both;
   }
   .pic {
     position: relative; display: block; width: auto; height: auto;
@@ -37,13 +36,12 @@
     max-height: calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
     max-height: calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
     object-fit: contain;
-    animation: picIn 1.4s cubic-bezier(.2,.7,.2,1) 2.9s both;
   }
-  @keyframes picIn {
-    from { opacity: 0; transform: scale(.94) translateY(12px); filter: blur(6px); }
-    to   { opacity: 1; transform: none; filter: blur(0); }
+  /* Fly in from the bottom to the top with a fade, landing exactly centered */
+  @keyframes flyIn {
+    from { opacity: 0; transform: translateY(55vh); }
+    to   { opacity: 1; transform: translateY(0); }
   }
-  @keyframes bgIn { from { opacity: 0; } to { opacity: 1; } }
 
   /* ---------- "Connecting to Church WiFi" intro ---------- */
   .intro {
@@ -82,7 +80,7 @@
   /* Respect "reduce motion" settings: skip the intro, just show the picture */
   @media (prefers-reduced-motion: reduce) {
     .intro { display: none; }
-    .pic, .frame::before { animation: none; }
+    .frame { animation: none; }
   }
 </style>
 </head>
